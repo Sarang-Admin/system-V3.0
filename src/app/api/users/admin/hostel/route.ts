@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET(response: NextResponse) {
+export async function GET() {
   try {
     const hostels = await prisma.hostels.findMany();
     const hostelData = await Promise.all(
