@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET(response: NextResponse) {
+export async function GET() {
   try {
     const classes = await prisma.classes.findMany();
     return NextResponse.json({ classes });
