@@ -1,0 +1,118 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGO_URI")
+}
+
+model SuperAdmin {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  username  String @unique
+  firstName String
+  lastName  String
+  email     String @unique
+  password  String
+}
+
+model AcademicYear {
+  id      String    @id @default(auto()) @map("_id") @db.ObjectId
+  year    Int       @unique
+  clasees Classes[]
+}
+
+model Classes {
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  className      String
+  year           Int
+  academicYearID AcademicYear @relation(fields: [year], references: [year])
+  students       Student[]
+}
+
+model Hostels {
+  id         String       @id @default(auto()) @map("_id") @db.ObjectId
+  hostelName String       @unique
+  rooms      HostelRoom[]
+  student    Student[]
+}
+
+model HostelRoom {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  roomID     String  @unique
+  roomNumber Int
+  capacity   Int
+  isFull     Boolean @default(false)
+  hostelName String
+  hostelID   Hostels @relation(fields: [id], references: [id])
+  student    Student[]
+}
+
+model Teacher {
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
+  staffID       String  @unique
+  username      String  
+  email         String  @unique
+  password      String
+  firstName     String
+  lastName      String
+  address       String
+  contact       String
+  dob           DateTime
+  joiningDate   DateTime
+  bloodGroup    String
+  isVerified    Boolean  @default(false)
+  userType      String   @default("Teacher")
+}
+
+model Student {
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
+  studentID     String  @unique
+  username      String  
+  email         String  @unique
+  password      String
+  firstName     String
+  lastName      String
+  fatherName    String
+  motherName    String
+  address       String
+  contact       String
+  altContact    String
+  whContact     String
+  parentContact String
+  city          String
+  pincode       Int?
+  dob           DateTime
+  admissionDate DateTime
+  bloodGroup    String
+  lastSchool    String
+  isSatsangi    String
+  nearTemple    String
+  fees          Float       @default(0.0)
+  alergy        String
+  dieces        String
+  standard      String
+  standardID    Classes     @relation(fields: [id], references: [id])
+  hostel        String
+  hostelID      Hostels     @relation(fields: [id], references: [id])
+  hostelRoom    Int         @default(1)
+  roomID        HostelRoom  @relation(fields: [id], references: [id])
+  isDish        String
+  isBed         String
+  isVerified    Boolean     @default(false)
+  userType      String      @default("Student")
+}
+
+model GatePass {
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
+  gatepassID    String  @unique
+  studentID     String  
+  careTaker     String
+  leavingDate   DateTime
+  time          String
+  reason        String
+  returnDate    DateTime
+}

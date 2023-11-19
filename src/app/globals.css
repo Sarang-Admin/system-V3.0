@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+.loadingContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3;
+  background-color: #e2e2e2;
+}
+
+.loadingBar {
+  height: 100%;
+  background-color: red;
+  transition: width 0.5s ease-in-out;
+}
+
