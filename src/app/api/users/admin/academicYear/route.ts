@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET(response: NextResponse) {
+export async function GET() {
   try {
     const years = await prisma.academicYear.findMany();
     return NextResponse.json({ years });
