@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET(response: NextResponse) {
+export async function GET() {
     try {
       const gatePasses = await prisma.gatePass.findMany();
       return NextResponse.json({ gatePasses });
